@@ -1,3 +1,12 @@
+<!--
+ * @Author: YinZihao 2764053835@qq.com
+ * @Date: 2026-03-27 14:15:58
+ * @LastEditors: YinZihao 2764053835@qq.com
+ * @LastEditTime: 2026-03-27 14:23:56
+ * @FilePath: \Student-Management-System-master\README.md
+ * @Description: 
+ * 
+-->
 学管系统
 
 项目简介
