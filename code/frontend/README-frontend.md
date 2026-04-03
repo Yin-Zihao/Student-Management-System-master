@@ -16,12 +16,37 @@ npx serve -p 5173 .
 # 浏览器打开 http://localhost:5173
 ```
 
+
 后端 API 约定（前端使用的示例接口）：
 
 - POST /api/login  -> body: {username,password} 返回 {ok:true, token, user}
 - GET  /api/students -> 返回学生数组 [{id,name,gender,class,phone,email}, ...]
+- GET  /api/students/:id -> 返回单个学生
+- POST /api/students -> 新增学生
+- PUT  /api/students/:id -> 更新学生
+- DELETE /api/students/:id -> 删除学生
 
-如果后端不可用，前端脚本会使用本地模拟数据（见 `assets/app.js`）。
+如果后端不可用，前端脚本会使用 `localStorage` 作为模拟数据源（见 `assets/app.js`）。
+
+页面说明：
+
+- `index.html` -> 跳转到 `login.html`
+- `login.html` -> 登录页（测试账号：admin / admin）
+- `dashboard.html` -> 仪表盘
+- `students.html` -> 学生列表（支持删除、跳转到详情或编辑）
+- `student-form.html` -> 新增/编辑学生
+- `student-detail.html` -> 学生详情
+
+数据库建议（最小）：
+
+- students 表：
+  - id (int, PK)
+  - name (varchar)
+  - gender (varchar)
+  - class (varchar)
+  - phone (varchar)
+  - email (varchar)
+
 
 数据库设计建议（最小）：
 
