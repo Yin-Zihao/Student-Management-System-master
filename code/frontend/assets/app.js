@@ -120,13 +120,21 @@ function initLogin(){
     e.preventDefault();
     const fd = new FormData(form);
     const username = fd.get('username'), password = fd.get('password');
+    const role = fd.get('role') || 'student';
     // 尝试后端登录
     try{
       const res = await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
       if(res.ok){const d=await res.json(); localStorage.setItem('sm_token', d.token || 'mock'); location.href='dashboard.html'; return;}
     }catch(e){}
     // 使用模拟登录
-    if(username==='admin' && password==='admin'){ localStorage.setItem('sm_token','mock'); location.href='dashboard.html'; } else { alert('登录失败，测试账号：admin / admin'); }
+    if(username){
+      localStorage.setItem('sm_token','mock');
+      localStorage.setItem('sm_user', JSON.stringify({account:username,name:username,role}));
+      // 根据角色跳转
+      if(role==='admin') location.href='admin-dashboard.html';
+      else if(role==='teacher') location.href='teacher-dashboard.html';
+      else location.href='student-dashboard.html';
+    } else { alert('登录失败，请输入用户名'); }
   });
 }
 
@@ -206,3 +214,24 @@ function initAdminDashboard(){
 function initAdminUsers(){
   const tbody = document.querySelector('#a-users tbody'); if(!tbody) return; const users = getUsers(); tbody.innerHTML = users.map(u=>`<tr><td>${u.id}</td><td>${u.account}</td><td>${u.name}</td><td>${u.role}</td><td><a href="#" data-id="${u.id}" class="a-del">删除</a></td></tr>`).join(''); tbody.querySelectorAll('.a-del').forEach(a=>a.addEventListener('click', async (e)=>{e.preventDefault(); const id=a.dataset.id; if(confirm('删除用户？')){ await deleteUser(id); initAdminUsers(); }}));
 }
+
+/* 顶部用户信息渲染与路由守卫 */
+function renderTopUser(){
+  const el = document.getElementById('topUser');
+  if(!el) return;
+  const u = JSON.parse(localStorage.getItem('sm_user')||'null');
+  if(u){ el.innerHTML = `${u.name} （${u.role}） <a href=\"login.html\" style=\"margin-left:12px;color:#666;\" onclick=\"localStorage.removeItem('sm_token');localStorage.removeItem('sm_user')\">退出</a>`; }
+}
+
+function ensureRole(required){
+  const u = JSON.parse(localStorage.getItem('sm_user')||'null');
+  if(!u){ location.href='login.html'; return false; }
+  if(required && u.role!==required){ /* not allowed */ alert('无权限访问此页面'); location.href='login.html'; return false; }
+  renderTopUser();
+  return true;
+}
+
+// 在页面加载时渲染顶部用户信息
+document.addEventListener('DOMContentLoaded', ()=>{
+  renderTopUser();
+});

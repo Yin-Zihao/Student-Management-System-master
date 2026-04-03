@@ -16,3 +16,17 @@ table{width:100%;border-collapse:collapse}
 th,td{padding:8px;border-bottom:1px solid #eee;text-align:left}
 .grid{display:flex;gap:12px}
 .stat{flex:1;padding:12px;background:#f8fbff;border-radius:6px;text-align:center}
+
+/* 左侧菜单布局 */
+.layout{display:flex;min-height:80vh}
+.sidebar{width:220px;background:#ffffff;border-right:1px solid #eee;padding:12px}
+.sidebar .menu{list-style:none;padding:0;margin:0}
+.sidebar .menu li{margin:6px 0}
+.sidebar .menu a{color:#333;text-decoration:none;display:block;padding:8px;border-radius:4px}
+.sidebar .menu a.active{background:var(--accent);color:#fff}
+.main{flex:1;padding:16px}
+
+@media (max-width:900px){
+	.layout{flex-direction:column}
+	.sidebar{width:100%;order:2}
+}
