@@ -126,15 +126,29 @@ function initLogin(){
       const res = await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
       if(res.ok){const d=await res.json(); localStorage.setItem('sm_token', d.token || 'mock'); location.href='dashboard.html'; return;}
     }catch(e){}
-    // 使用模拟登录
-    if(username){
-      localStorage.setItem('sm_token','mock');
-      localStorage.setItem('sm_user', JSON.stringify({account:username,name:username,role}));
-      // 根据角色跳转
-      if(role==='admin') location.href='admin-dashboard.html';
-      else if(role==='teacher') location.href='teacher-dashboard.html';
-      else location.href='student-dashboard.html';
-    } else { alert('登录失败，请输入用户名'); }
+
+    // 使用本地 data/users.json 校验（密码以 Base64 存储）
+    try{
+      const r = await fetch('data/users.json');
+      if(r.ok){
+        const list = await r.json();
+        const u = list.find(x=>x.username===username && x.role===role);
+        if(u){
+          const encoded = btoa(String(password));
+          if(encoded === u.password){
+            localStorage.setItem('sm_token','mock');
+            localStorage.setItem('sm_user', JSON.stringify({account:username,name:u.name||username,role}));
+            // 根据角色跳转
+            if(role==='admin') location.href='admin/admin-dashboard.html';
+            else if(role==='teacher') location.href='teacher/teacher-dashboard.html';
+            else location.href='student/student-dashboard.html';
+            return;
+          }
+        }
+      }
+    }catch(e){ console.error(e) }
+
+    alert('登录失败：用户名或密码错误');
   });
 }
 
