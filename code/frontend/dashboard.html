@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>学生管理 - 仪表盘</title>
+    <link rel="stylesheet" href="assets/style.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <h2>学生管理系统</h2>
+      <nav>
+        <a href="dashboard.html">仪表盘</a>
+        <a href="students.html">学生列表</a>
+        <a href="login.html">退出</a>
+      </nav>
+    </header>
+    <main class="container">
+      <section class="card">
+        <h3>系统概况</h3>
+        <div id="stats" class="grid"></div>
+      </section>
+      <section class="card">
+        <h3>最近新增学生</h3>
+        <div id="recent"></div>
+      </section>
+    </main>
+    <script src="assets/app.js"></script>
+  </body>
+</html>
