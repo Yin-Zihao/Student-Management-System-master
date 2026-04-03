@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>教师端 - 仪表盘</title>
+    <link rel="stylesheet" href="assets/style.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <h2>学管系统（教师）</h2>
+      <nav>
+        <a href="teacher-dashboard.html">仪表盘</a>
+        <a href="teacher-students.html">我的学生</a>
+        <a href="login.html">退出</a>
+      </nav>
+    </header>
+    <main class="container">
+      <section class="card">
+        <h3>教师概况</h3>
+        <div id="t-stats" class="grid"></div>
+      </section>
+      <section class="card">
+        <h3>待批作业 / 通知</h3>
+        <div id="t-notices">暂无</div>
+      </section>
+    </main>
+    <script src="assets/app.js"></script>
+  </body>
+</html>

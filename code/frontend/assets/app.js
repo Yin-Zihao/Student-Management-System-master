@@ -5,6 +5,17 @@ const MOCK_STUDENTS = [
   {id:3,name:'王五',gender:'男',class:'计科一班',phone:'13800138002'}
 ];
 
+const MOCK_TEACHERS = [
+  {id:1,account:'tzhang',name:'张老师',title:'讲师'},
+  {id:2,account:'tli',name:'李老师',title:'副教授'}
+];
+
+const MOCK_USERS = [
+  {id:1,account:'admin',name:'系统管理员',role:'admin'},
+  {id:2,account:'tzhang',name:'张老师',role:'teacher'},
+  {id:3,account:'szhang',name:'张三',role:'student'}
+];
+
 const LS_KEY = 'sm_students';
 const LS_NEXT = 'sm_nextId';
 
@@ -14,6 +25,20 @@ function loadFromLocal(){
   localStorage.setItem(LS_KEY, JSON.stringify(MOCK_STUDENTS));
   localStorage.setItem(LS_NEXT, String(MOCK_STUDENTS.length + 1));
   return MOCK_STUDENTS.slice();
+}
+
+function loadTeachers(){
+  const raw = localStorage.getItem('sm_teachers');
+  if(raw) return JSON.parse(raw);
+  localStorage.setItem('sm_teachers', JSON.stringify(MOCK_TEACHERS));
+  return MOCK_TEACHERS.slice();
+}
+
+function loadUsers(){
+  const raw = localStorage.getItem('sm_users');
+  if(raw) return JSON.parse(raw);
+  localStorage.setItem('sm_users', JSON.stringify(MOCK_USERS));
+  return MOCK_USERS.slice();
 }
 
 async function getStudents(){
@@ -65,6 +90,20 @@ async function getStudentById(id){
   try{const res = await fetch(`/api/students/${id}`); if(res.ok) return await res.json();}catch(e){}
   const list = loadFromLocal();
   return list.find(s=>s.id===Number(id))||null;
+}
+
+/* 教师/管理员数据接口（本地 mock） */
+function getTeachers(){
+  try{ /* try backend if exists */ }catch(e){}
+  return loadTeachers();
+}
+
+function getUsers(){
+  return loadUsers();
+}
+
+async function deleteUser(id){
+  let users = loadUsers(); users = users.filter(u=>u.id!==Number(id)); localStorage.setItem('sm_users', JSON.stringify(users)); return true;
 }
 
 /* 页面初始化 */
@@ -144,4 +183,26 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(path === 'student-form.html') initStudentForm();
   if(path === 'student-detail.html') initStudentDetail();
   if(path === 'dashboard.html') initDashboard();
+  if(path === 'teacher-dashboard.html') initTeacherDashboard();
+  if(path === 'teacher-students.html') initTeacherStudents();
+  if(path === 'admin-dashboard.html') initAdminDashboard();
+  if(path === 'admin-users.html') initAdminUsers();
 });
+
+/* 教师页面初始化 */
+function initTeacherDashboard(){
+  const el = document.getElementById('t-stats'); if(!el) return; const teachers = getTeachers(); el.innerHTML = `<div class="stat"><div>教师数</div><strong>${teachers.length}</strong></div>`;
+}
+
+async function initTeacherStudents(){
+  const tbody = document.querySelector('#t-students tbody'); if(!tbody) return; const students = await getStudents(); tbody.innerHTML = students.map(s=>`<tr><td>${s.id}</td><td>${s.name}</td><td>${s.gender}</td><td>${s.class||''}</td><td><a href="student-detail.html?id=${s.id}">详情</a></td></tr>`).join('');
+}
+
+/* 管理员页面初始化 */
+function initAdminDashboard(){
+  const el = document.getElementById('a-stats'); if(!el) return; const students = loadFromLocal(); const teachers = loadTeachers(); const users = loadUsers(); el.innerHTML = `<div class="stat"><div>学生</div><strong>${students.length}</strong></div><div class="stat"><div>教师</div><strong>${teachers.length}</strong></div><div class="stat"><div>用户</div><strong>${users.length}</strong></div>`;
+}
+
+function initAdminUsers(){
+  const tbody = document.querySelector('#a-users tbody'); if(!tbody) return; const users = getUsers(); tbody.innerHTML = users.map(u=>`<tr><td>${u.id}</td><td>${u.account}</td><td>${u.name}</td><td>${u.role}</td><td><a href="#" data-id="${u.id}" class="a-del">删除</a></td></tr>`).join(''); tbody.querySelectorAll('.a-del').forEach(a=>a.addEventListener('click', async (e)=>{e.preventDefault(); const id=a.dataset.id; if(confirm('删除用户？')){ await deleteUser(id); initAdminUsers(); }}));
+}

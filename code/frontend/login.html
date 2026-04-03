@@ -13,6 +13,13 @@
         <form id="loginForm">
           <label>用户名<input name="username" required></label>
           <label>密码<input name="password" type="password" required></label>
+          <label>角色
+            <select name="role">
+              <option value="student">学生</option>
+              <option value="teacher">教师</option>
+              <option value="admin">管理员</option>
+            </select>
+          </label>
           <div class="actions">
             <button type="submit">登录</button>
           </div>
