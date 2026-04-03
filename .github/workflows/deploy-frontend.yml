@@ -1,0 +1,20 @@
+name: Deploy frontend to GitHub Pages
+
+on:
+  push:
+    branches: [ "wang" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4.4.0
+        with:
+          branch: gh-pages
+          folder: code/frontend
+          clean: true
