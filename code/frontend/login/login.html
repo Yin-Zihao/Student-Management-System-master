@@ -27,6 +27,14 @@
         <p class="muted">测试账号：admin / admin123（如无后端，将使用本地模拟）</p>
       </div>
     </main>
-    <script src="../assets/app.js"></script>
+        <!-- Inline users data: 当直接双击打开 file:// 时，fetch 可能失败，脚本会回退到 window.INLINE_USERS -->
+        <script>
+          window.INLINE_USERS = [
+            {"username":"admin","password":"YWRtaW4xMjM=","role":"admin","name":"系统管理员"},
+            {"username":"tzhang","password":"dGVhY2hlcjEyMw==","role":"teacher","name":"张老师"},
+            {"username":"szhang","password":"c3R1ZGVudDEyMw==","role":"student","name":"张三"}
+          ];
+        </script>
+        <script src="../assets/app.js"></script>
   </body>
 </html>

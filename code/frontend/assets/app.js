@@ -129,10 +129,23 @@ function initLogin(){
 
     // 使用本地 data/users.json 校验（密码以 Base64 存储）
     try{
-      // 使用绝对路径以确保在子目录（如 login/）中也能正确读取
-      const r = await fetch('/code/frontend/data/users.json');
-      if(r.ok){
-        const list = await r.json();
+      // 优先尝试通过静态服务器的绝对路径读取
+      let list = null;
+      try{
+        let r = await fetch('/code/frontend/data/users.json');
+        if(!r.ok){
+          // fallback: 相对路径（在某些部署下有效）
+          r = await fetch('data/users.json');
+        }
+        if(r && r.ok) list = await r.json();
+      }catch(e){
+        // fetch 在 file:// 或受限环境可能失败，这里不抛出，改为后续回退
+      }
+
+      // 最后回退：若页面内联了用户数据（用于直接双击打开的情况），使用它
+      if(!list && window.INLINE_USERS) list = window.INLINE_USERS;
+
+      if(list){
         const u = list.find(x=>x.username===username && x.role===role);
         if(u){
           const encoded = btoa(String(password));
