@@ -129,7 +129,8 @@ function initLogin(){
 
     // 使用本地 data/users.json 校验（密码以 Base64 存储）
     try{
-      const r = await fetch('data/users.json');
+      // 使用绝对路径以确保在子目录（如 login/）中也能正确读取
+      const r = await fetch('/code/frontend/data/users.json');
       if(r.ok){
         const list = await r.json();
         const u = list.find(x=>x.username===username && x.role===role);
