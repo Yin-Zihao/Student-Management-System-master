@@ -121,35 +121,46 @@ function initLogin(){
     const fd = new FormData(form);
     const username = fd.get('username'), password = fd.get('password');
     const role = fd.get('role') || 'student';
+    console.log('[login] submit', {username, role});
     // 尝试后端登录
     try{
+      console.log('[login] trying backend /api/login');
       const res = await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
+      console.log('[login] backend response ok=', res && res.ok);
       if(res.ok){const d=await res.json(); localStorage.setItem('sm_token', d.token || 'mock'); location.href='dashboard.html'; return;}
-    }catch(e){}
+    }catch(e){ console.warn('[login] backend error', e); }
 
     // 使用本地 data/users.json 校验（密码以 Base64 存储）
     try{
       // 优先尝试通过静态服务器的绝对路径读取
       let list = null;
       try{
+        console.log('[login] fetching /code/frontend/data/users.json');
         let r = await fetch('/code/frontend/data/users.json');
         if(!r.ok){
-          // fallback: 相对路径（在某些部署下有效）
+          console.log('[login] absolute path failed, trying relative data/users.json');
           r = await fetch('data/users.json');
         }
         if(r && r.ok) list = await r.json();
       }catch(e){
-        // fetch 在 file:// 或受限环境可能失败，这里不抛出，改为后续回退
+        console.warn('[login] fetch users.json error', e);
       }
 
       // 最后回退：若页面内联了用户数据（用于直接双击打开的情况），使用它
-      if(!list && window.INLINE_USERS) list = window.INLINE_USERS;
+      if(!list && window.INLINE_USERS) {
+        console.log('[login] using INLINE_USERS fallback');
+        list = window.INLINE_USERS;
+      }
 
+      console.log('[login] users list present=', !!list, list && list.length);
       if(list){
         const u = list.find(x=>x.username===username && x.role===role);
+        console.log('[login] matched user object=', u);
         if(u){
           const encoded = btoa(String(password));
+          console.log('[login] encoded input=', encoded, 'stored=', u.password);
           if(encoded === u.password){
+            console.log('[login] password match, signing in', username, role);
             localStorage.setItem('sm_token','mock');
             localStorage.setItem('sm_user', JSON.stringify({account:username,name:u.name||username,role}));
             // 根据角色跳转
@@ -157,11 +168,14 @@ function initLogin(){
             else if(role==='teacher') location.href='teacher/teacher-dashboard.html';
             else location.href='student/student-dashboard.html';
             return;
+          } else {
+            console.log('[login] password mismatch');
           }
         }
       }
-    }catch(e){ console.error(e) }
+    }catch(e){ console.error('[login] unexpected error', e) }
 
+    console.log('[login] failed - alerting user');
     alert('登录失败：用户名或密码错误');
   });
 }
