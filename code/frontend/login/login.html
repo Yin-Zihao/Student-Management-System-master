@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>学生管理 - 登录</title>
+    <link rel="stylesheet" href="../assets/style.css">
+  </head>
+  <body>
+    <main class="center">
+      <div class="card">
+        <h1>系统登录</h1>
+        <form id="loginForm">
+          <label>用户名<input name="username" required></label>
+          <label>密码<input name="password" type="password" required></label>
+          <label>角色
+            <select name="role">
+              <option value="student">学生</option>
+              <option value="teacher">教师</option>
+              <option value="admin">管理员</option>
+            </select>
+          </label>
+          <div class="actions">
+            <button type="submit">登录</button>
+          </div>
+        </form>
+        <p class="muted">测试账号：admin / admin123（如无后端，将使用本地模拟）</p>
+      </div>
+    </main>
+        <!-- Inline users data: 当直接双击打开 file:// 时，fetch 可能失败，脚本会回退到 window.INLINE_USERS -->
+        <script>
+          window.INLINE_USERS = [
+            {"username":"admin","password":"YWRtaW4xMjM=","role":"admin","name":"系统管理员"},
+            {"username":"tzhang","password":"dGVhY2hlcjEyMw==","role":"teacher","name":"张老师"},
+            {"username":"szhang","password":"c3R1ZGVudDEyMw==","role":"student","name":"张三"}
+          ];
+        </script>
+        <script src="../assets/app.js"></script>
+  </body>
+</html>

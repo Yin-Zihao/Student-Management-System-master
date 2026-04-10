@@ -1,0 +1,70 @@
+# 前端静态原型（说明）
+
+位置：`code/frontend`
+
+如何本地查看：
+
+1. 在文件管理器中打开 `code/frontend/index.html`（会跳转到登录页）。
+2. 推荐使用本地静态服务器（避免模块/CORS 问题）：
+
+```powershell
+cd "d:\mydownload\工程设计\Student-Management-System-master\code\frontend"
+# Python (若已安装)
+py -3 -m http.server 5173
+# 或者使用 npx
+npx serve -p 5173 .
+# 浏览器打开 http://localhost:5173
+```
+
+
+后端 API 约定（前端使用的示例接口）：
+
+- POST /api/login  -> body: {username,password} 返回 {ok:true, token, user}
+- GET  /api/students -> 返回学生数组 [{id,name,gender,class,phone,email}, ...]
+- GET  /api/students/:id -> 返回单个学生
+- POST /api/students -> 新增学生
+- PUT  /api/students/:id -> 更新学生
+- DELETE /api/students/:id -> 删除学生
+
+如果后端不可用，前端脚本会使用 `localStorage` 作为模拟数据源（见 `assets/app.js`）。
+
+页面说明：
+
+- `index.html` -> 跳转到 `login.html`
+- `login.html` -> 登录页（测试账号：admin / admin）
+- `dashboard.html` -> 仪表盘
+- `students.html` -> 学生列表（支持删除、跳转到详情或编辑）
+- `student-form.html` -> 新增/编辑学生
+- `student-detail.html` -> 学生详情
+
+三角色说明：
+- 学生（`student`）：可查看个人信息、班级与课程（当前原型展示学生仪表盘与学生列表）。
+- 教师（`teacher`）：可查看教师仪表盘、我的学生列表（支持查看学生详情）。
+- 管理员（`admin`）：可查看系统概况并管理用户（增加/删除/修改需后端支持，原型提供删除 mock 操作）。
+
+数据库建议（最小）：
+
+- students 表：
+  - id (int, PK)
+  - name (varchar)
+  - gender (varchar)
+  - class (varchar)
+  - phone (varchar)
+  - email (varchar)
+
+
+数据库设计建议（最小）：
+
+- students 表：
+  - id (int, PK)
+  - name (varchar)
+  - gender (varchar)
+  - class (varchar)
+  - phone (varchar)
+  - email (varchar)
+
+下一步建议：
+- 如果需要我可以：
+  - 根据后端真实 API 修改前端请求地址并加入真实认证（Bearer token）。
+  - 把 `code/frontend` 部署到 GitHub Pages（我已经添加了 Action，可检查 Actions 日志）。
+  - 增加学生新增/编辑页面并实现与后端交互。

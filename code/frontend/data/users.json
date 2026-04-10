@@ -1,0 +1,20 @@
+[
+  {
+    "username": "admin",
+    "password": "YWRtaW4xMjM=",
+    "role": "admin",
+    "name": "系统管理员"
+  },
+  {
+    "username": "tzhang",
+    "password": "dGVhY2hlcjEyMw==",
+    "role": "teacher",
+    "name": "张老师"
+  },
+  {
+    "username": "szhang",
+    "password": "c3R1ZGVudDEyMw==",
+    "role": "student",
+    "name": "张三"
+  }
+]

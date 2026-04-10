@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>学生 - 个人看板</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <h2>学管系统（学生）</h2>
+      <div class="user-info" id="topUser"></div>
+    </header>
+    <div class="layout">
+      <aside class="sidebar">
+        <ul class="menu">
+          <li><a href="student-dashboard.html">📊 个人看板</a></li>
+          <li><a href="student-scores.html">📖 我的成绩</a></li>
+          <li><a href="student-competitions.html">🏆 竞赛获奖</a></li>
+          <li><a href="student-profile.html">👤 个人信息</a></li>
+        </ul>
+      </aside>
+      <div class="main">
+        <section class="card">
+          <h3>欢迎卡片</h3>
+          <div id="welcome">学生姓名 - 班级 - 学号（占位）</div>
+        </section>
+        <section class="card">
+          <h3>学分进度</h3>
+          <div id="credits">已获学分：0 / 160</div>
+        </section>
+        <section class="card">
+          <h3>成绩趋势（占位）</h3>
+          <div id="scoreChart" style="height:240px"></div>
+        </section>
+      </div>
+    </div>
+    <script src="../assets/app.js"></script>
+    <script>
+      // 渲染示例折线图（模拟）
+      document.addEventListener('DOMContentLoaded', ()=>{
+        const chartEl = document.getElementById('scoreChart');
+        if(chartEl && window.echarts){
+          const myChart = echarts.init(chartEl);
+          myChart.setOption({xAxis:{type:'category',data:['学期1','学期2','学期3','学期4']},yAxis:{type:'value'},series:[{data:[72,78,81,85],type:'line'}]});
+        }
+      });
+    </script>
+  </body>
+</html>
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>学生 - 个人看板</title>
+    <link rel="stylesheet" href="../assets/style.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <h2>学管系统（学生）</h2>
+      <div class="user-info" id="topUser"></div>
+    </header>
+    <div class="layout">
+      <aside class="sidebar">
+        <ul class="menu">
+          <li><a href="student-dashboard.html">📊 个人看板</a></li>
+          <li><a href="student-scores.html">我的成绩</a></li>
+          <li><a href="student-competitions.html">竞赛获奖</a></li>
+          <li><a href="student-profile.html">个人信息</a></li>
+        </ul>
+      </aside>
+      <div class="main">
+        <section class="card">
+          <h3>个人看板（占位）</h3>
+          <div id="stats"></div>
+        </section>
+      </div>
+    </div>
+    <script src="../assets/app.js"></script>
+  </body>
+</html>

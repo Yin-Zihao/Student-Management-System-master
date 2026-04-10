@@ -1,0 +1,32 @@
+:root{--bg:#f5f7fb;--card:#fff;--accent:#0b63ff;--muted:#666}
+*{box-sizing:border-box;font-family:Inter,Arial,Helvetica,sans-serif}
+body{margin:0;background:var(--bg);color:#222}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:var(--card);box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.topbar nav a{margin-left:12px;color:var(--accent);text-decoration:none}
+.container{padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--card);padding:16px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.center{height:100vh;display:flex;align-items:center;justify-content:center}
+.card h1,.card h3{margin:0 0 12px}
+form label{display:block;margin:8px 0}
+input{width:100%;padding:8px;border:1px solid #ddd;border-radius:4px}
+.actions{margin-top:12px;text-align:right}
+button{background:var(--accent);color:#fff;border:none;padding:8px 14px;border-radius:6px;cursor:pointer}
+.muted{color:var(--muted);font-size:13px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:8px;border-bottom:1px solid #eee;text-align:left}
+.grid{display:flex;gap:12px}
+.stat{flex:1;padding:12px;background:#f8fbff;border-radius:6px;text-align:center}
+
+/* 左侧菜单布局 */
+.layout{display:flex;min-height:80vh}
+.sidebar{width:220px;background:#ffffff;border-right:1px solid #eee;padding:12px}
+.sidebar .menu{list-style:none;padding:0;margin:0}
+.sidebar .menu li{margin:6px 0}
+.sidebar .menu a{color:#333;text-decoration:none;display:block;padding:8px;border-radius:4px}
+.sidebar .menu a.active{background:var(--accent);color:#fff}
+.main{flex:1;padding:16px}
+
+@media (max-width:900px){
+	.layout{flex-direction:column}
+	.sidebar{width:100%;order:2}
+}
