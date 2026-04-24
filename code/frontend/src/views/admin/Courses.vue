@@ -3,7 +3,7 @@
     <h3>课程管理</h3>
     <el-row style="margin:12px 0">
       <el-col :span="18">
-        <el-input v-model="filters.keyword" placeholder="课程名/教师" clearable style="width:280px" />
+        <el-input v-model="filters.keyword" placeholder="课程代码" clearable style="width:280px" />
         <el-select v-model="filters.semester" placeholder="学期" clearable style="width:140px;margin-left:8px">
           <el-option label="2026春" value="2026S" />
           <el-option label="2025秋" value="2025A" />

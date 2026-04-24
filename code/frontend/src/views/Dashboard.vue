@@ -52,6 +52,105 @@
           <el-icon><Trophy /></el-icon>
           <span>我的成绩</span>
         </el-menu-item>
+
+        <el-sub-menu v-if="['secretary'].includes(role)">
+          <template #title>
+            <el-icon><DataAnalysis /></el-icon>
+            <span>数据看板</span>
+          </template>
+          <el-menu-item index="/secretary/dashboard">
+            <el-icon><DataLine /></el-icon>
+            <span>人事看板</span>
+          </el-menu-item>
+        </el-sub-menu>
+
+        <el-sub-menu v-if="['secretary'].includes(role)">
+          <template #title>
+            <el-icon><Postcard /></el-icon>
+            <span>人事管理</span>
+          </template>
+          <el-menu-item index="/secretary/teacher-info">
+            <el-icon><User /></el-icon>
+            <span>教职工信息</span>
+          </el-menu-item>
+          <el-menu-item index="/secretary/educations">
+            <el-icon><School /></el-icon>
+            <span>学历学位</span>
+          </el-menu-item>
+          <el-menu-item index="/secretary/assessments">
+            <el-icon><CircleCheck /></el-icon>
+            <span>年度考核</span>
+          </el-menu-item>
+          <el-menu-item index="/secretary/entrepreneurships">
+            <el-icon><Briefcase /></el-icon>
+            <span>创业信息</span>
+          </el-menu-item>
+          <el-menu-item index="/secretary/children">
+            <el-icon><UserFilled /></el-icon>
+            <span>子女信息</span>
+          </el-menu-item>
+          <el-menu-item index="/secretary/honors">
+            <el-icon><Trophy /></el-icon>
+            <span>荣誉称号</span>
+          </el-menu-item>
+        </el-sub-menu>
+
+        <el-sub-menu v-if="['secretary'].includes(role)">
+          <template #title>
+            <el-icon><Document /></el-icon>
+            <span>党务管理</span>
+          </template>
+          <el-menu-item index="/secretary/party-documents">
+            <el-icon><Files /></el-icon>
+            <span>党务文件</span>
+          </el-menu-item>
+        </el-sub-menu>
+
+        <el-sub-menu v-if="['secretary'].includes(role)">
+          <template #title>
+            <el-icon><Folder /></el-icon>
+            <span>数据管理</span>
+          </template>
+          <el-menu-item index="/secretary/papers">
+            <el-icon><Document /></el-icon>
+            <span>论文管理</span>
+          </el-menu-item>
+          <el-menu-item index="/secretary/research-projects">
+            <el-icon><FolderOpened /></el-icon>
+            <span>科研项目</span>
+          </el-menu-item>
+          <el-menu-item index="/secretary/research-awards">
+            <el-icon><Medal /></el-icon>
+            <span>科研奖励</span>
+          </el-menu-item>
+          <el-menu-item index="/secretary/teaching-awards">
+            <el-icon><Reading /></el-icon>
+            <span>教研奖励</span>
+          </el-menu-item>
+          <el-menu-item index="/secretary/innovation-projects">
+            <el-icon><Cpu /></el-icon>
+            <span>大创项目</span>
+          </el-menu-item>
+          <el-menu-item index="/secretary/competitions">
+            <el-icon><Trophy /></el-icon>
+            <span>竞赛管理</span>
+          </el-menu-item>
+          <el-menu-item index="/secretary/lanqiao">
+            <el-icon><Monitor /></el-icon>
+            <span>蓝桥杯</span>
+          </el-menu-item>
+        </el-sub-menu>
+
+        <el-sub-menu v-if="['secretary'].includes(role)">
+          <template #title>
+            <el-icon><Upload /></el-icon>
+            <span>导入导出</span>
+          </template>
+          <el-menu-item index="/secretary/import-export">
+            <el-icon><Download /></el-icon>
+            <span>数据导入导出</span>
+          </el-menu-item>
+        </el-sub-menu>
       </el-menu>
     </el-aside>
 

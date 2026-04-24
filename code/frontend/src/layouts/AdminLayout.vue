@@ -11,6 +11,18 @@
           <el-menu-item index="/admin/scores">成绩管理</el-menu-item>
           <el-menu-item index="/admin/import-export">导入导出</el-menu-item>
         </el-sub-menu>
+        <el-sub-menu index="2">
+          <template #title>数据管理</template>
+          <el-menu-item index="/admin/papers">论文管理</el-menu-item>
+          <el-menu-item index="/admin/research-projects">科研项目</el-menu-item>
+          <el-menu-item index="/admin/research-awards">科研奖励</el-menu-item>
+          <el-menu-item index="/admin/teaching-awards">教研奖励</el-menu-item>
+          <el-menu-item index="/admin/innovation-projects">大创项目</el-menu-item>
+          <el-menu-item index="/admin/competitions">竞赛管理</el-menu-item>
+          <el-menu-item index="/admin/lanqiao">蓝桥杯</el-menu-item>
+          <el-menu-item index="/admin/entrepreneurships">创业信息</el-menu-item>
+          <el-menu-item index="/admin/honors">荣誉信息</el-menu-item>
+        </el-sub-menu>
       </el-menu>
     </el-aside>
     <el-container>

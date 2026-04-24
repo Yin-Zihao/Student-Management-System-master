@@ -20,16 +20,6 @@
 
         <el-sub-menu index="1">
           <template #title>
-            <el-icon><School /></el-icon>
-            <span>教学管理</span>
-          </template>
-          <el-menu-item index="/secretary/courses">课程管理</el-menu-item>
-          <el-menu-item index="/secretary/scores">成绩管理</el-menu-item>
-          <el-menu-item index="/secretary/classes">班级管理</el-menu-item>
-        </el-sub-menu>
-
-        <el-sub-menu index="2">
-          <template #title>
             <el-icon><Postcard /></el-icon>
             <span>人事管理</span>
           </template>
@@ -41,7 +31,7 @@
           <el-menu-item index="/secretary/honors">荣誉称号</el-menu-item>
         </el-sub-menu>
 
-        <el-sub-menu index="3">
+        <el-sub-menu index="2">
           <template #title>
             <el-icon><Document /></el-icon>
             <span>党务管理</span>
@@ -49,21 +39,7 @@
           <el-menu-item index="/secretary/party-documents">党务文件</el-menu-item>
         </el-sub-menu>
 
-        <el-sub-menu index="4">
-          <template #title>
-            <el-icon><Folder /></el-icon>
-            <span>数据管理</span>
-          </template>
-          <el-menu-item index="/secretary/papers">论文管理</el-menu-item>
-          <el-menu-item index="/secretary/research-projects">科研项目</el-menu-item>
-          <el-menu-item index="/secretary/research-awards">科研奖励</el-menu-item>
-          <el-menu-item index="/secretary/teaching-awards">教研奖励</el-menu-item>
-          <el-menu-item index="/secretary/innovation-projects">大创项目</el-menu-item>
-          <el-menu-item index="/secretary/competitions">竞赛管理</el-menu-item>
-          <el-menu-item index="/secretary/lanqiao">蓝桥杯</el-menu-item>
-        </el-sub-menu>
-
-        <el-sub-menu index="5">
+        <el-sub-menu index="3">
           <template #title>
             <el-icon><Upload /></el-icon>
             <span>导入导出</span>
@@ -71,7 +47,7 @@
           <el-menu-item index="/secretary/import-export">数据导入导出</el-menu-item>
         </el-sub-menu>
 
-        <el-sub-menu index="6">
+        <el-sub-menu index="4">
           <template #title>
             <el-icon><Setting /></el-icon>
             <span>系统管理</span>

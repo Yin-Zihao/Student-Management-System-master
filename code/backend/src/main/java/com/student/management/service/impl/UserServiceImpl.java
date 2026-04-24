@@ -20,9 +20,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private JwtUtil jwtUtil;
 
     @Override
-    public Map<String, Object> login(String username, String password, String role) {
+    public Map<String, Object> login(String username, String password) {
         // 首先检查是否是默认用户
-        if (username.equals("admin") && password.equals("admin123") && role.equals("admin")) {
+        if (username.equals("admin") && password.equals("admin123")) {
             User user = new User();
             user.setId(1L);
             user.setUsername("admin");
@@ -35,7 +35,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             result.put("userInfo", user);
             return result;
         }
-        if (username.equals("teacher01") && password.equals("123456") && role.equals("teacher")) {
+        if (username.equals("teacher01") && password.equals("123456")) {
             User user = new User();
             user.setId(2L);
             user.setUsername("teacher01");
@@ -48,7 +48,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             result.put("userInfo", user);
             return result;
         }
-        if (username.equals("student01") && password.equals("123456") && role.equals("student")) {
+        if (username.equals("student01") && password.equals("123456")) {
             User user = new User();
             user.setId(3L);
             user.setUsername("student01");
@@ -61,7 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             result.put("userInfo", user);
             return result;
         }
-        if (username.equals("secretary01") && password.equals("123456") && role.equals("secretary")) {
+        if (username.equals("secretary01") && password.equals("123456")) {
             User user = new User();
             user.setId(4L);
             user.setUsername("secretary01");
@@ -88,9 +88,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             }
             if (!checkPassword(password, user.getPassword())) {
                 throw new BusinessException(400, "密码错误");
-            }
-            if (!user.getRole().equals(role)) {
-                throw new BusinessException(400, "用户角色不匹配");
             }
             String token = jwtUtil.generateToken(user.getId(), user.getUsername(), user.getRole());
             Map<String, Object> result = new HashMap<>();

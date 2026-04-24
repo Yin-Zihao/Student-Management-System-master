@@ -26,9 +26,12 @@ request.interceptors.response.use(
     if (res.code !== 200) {
       ElMessage.error(res.msg || '请求失败')
       if (res.code === 401) {
-        localStorage.removeItem('token')
-        localStorage.removeItem('userInfo')
-        router.push('/login')
+        // 检查当前是否在登录页面
+        if (window.location.pathname !== '/login') {
+          localStorage.removeItem('token')
+          localStorage.removeItem('userInfo')
+          router.push('/login')
+        }
       }
       return Promise.reject(new Error(res.msg || '请求失败'))
     }

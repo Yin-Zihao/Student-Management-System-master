@@ -2,7 +2,17 @@ import { reactive } from 'vue'
 
 const state = reactive({
   token: localStorage.getItem('token') || '',
-  userInfo: JSON.parse(localStorage.getItem('userInfo') || 'null')
+  userInfo: (() => {
+    try {
+      const userInfoStr = localStorage.getItem('userInfo')
+      if (userInfoStr === 'undefined' || userInfoStr === 'null' || !userInfoStr) {
+        return null
+      }
+      return JSON.parse(userInfoStr)
+    } catch (e) {
+      return null
+    }
+  })()
 })
 
 const setToken = (token) => {

@@ -24,20 +24,6 @@
         class="login-form"
         size="large"
       >
-        <el-form-item prop="role">
-          <el-select 
-            v-model="loginForm.role" 
-            placeholder="请选择登录身份"
-            clearable
-            style="width: 100%"
-          >
-            <el-option label="管理员" value="admin" />
-            <el-option label="教师" value="teacher" />
-            <el-option label="学生" value="student" />
-            <el-option label="人事秘书" value="secretary" />
-          </el-select>
-        </el-form-item>
-
         <el-form-item prop="username">
           <el-input 
             v-model="loginForm.username" 
@@ -90,14 +76,10 @@ const loading = ref(false)
 
 const loginForm = reactive({
   username: localStorage.getItem('loginUsername') || '',
-  password: '',
-  role: localStorage.getItem('loginRole') || ''
+  password: ''
 })
 
 const loginRules = {
-  role: [
-    { required: true, message: '请选择登录身份', trigger: 'change' }
-  ],
   username: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
     { min: 3, max: 20, message: '用户名长度在 3 到 20 个字符', trigger: 'blur' }
@@ -113,7 +95,6 @@ const handleLogin = async () => {
   
   // 保存登录信息到localStorage，防止登录失败后丢失
   localStorage.setItem('loginUsername', loginForm.username)
-  localStorage.setItem('loginRole', loginForm.role)
   
   await loginFormRef.value.validate(async (valid) => {
     if (valid) {
@@ -128,7 +109,6 @@ const handleLogin = async () => {
         
         // 登录成功后清除临时存储的登录信息
         localStorage.removeItem('loginUsername')
-        localStorage.removeItem('loginRole')
         
         router.push('/dashboard')
         
